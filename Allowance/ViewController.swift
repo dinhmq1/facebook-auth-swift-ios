@@ -7,12 +7,51 @@
 //
 
 import UIKit
+import Parse
+import Bolts
+import FBSDKCoreKit
+import ParseFacebookUtilsV4
 
 class ViewController: UIViewController {
 
+    @IBAction func btnFbLogin(sender: AnyObject) {
+        
+        let permissions = ["public_profile"]
+        
+        PFFacebookUtils.logInInBackgroundWithReadPermissions(permissions, block:{
+            
+            (user: PFUser?, error: NSError?) -> Void in
+            
+            if let error = error {
+                print(error)
+            } else {
+                if let user = user {
+                    print(user)
+                    self.performSegueWithIdentifier("showSigningScreen", sender: self)
+                }
+            }
+            
+        })
+        
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+//   log user out
+//        PFUser.logOut()
+        
+        if let username = PFUser.currentUser()?.username {
+            
+            performSegueWithIdentifier("showSigningScreen", sender: self)
+            
+        }
+        
+    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -22,4 +61,19 @@ class ViewController: UIViewController {
 
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
