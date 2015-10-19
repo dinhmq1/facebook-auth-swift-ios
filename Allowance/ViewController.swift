@@ -10,6 +10,7 @@ import UIKit
 import Parse
 import Bolts
 import FBSDKCoreKit
+import FBSDKLoginKit
 import ParseFacebookUtilsV4
 
 class ViewController: UIViewController {
@@ -27,12 +28,10 @@ class ViewController: UIViewController {
             } else {
                 if let user = user {
                     print(user)
-                    self.performSegueWithIdentifier("showSigningScreen", sender: self)
+                    self.performSegueWithIdentifier("showSigninScreen", sender: self)
                 }
             }
-            
         })
-        
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -41,7 +40,7 @@ class ViewController: UIViewController {
         
         if let username = PFUser.currentUser()?.username {
             
-            performSegueWithIdentifier("showSigningScreen", sender: self)
+            performSegueWithIdentifier("showSigninScreen", sender: self)
             
         }
         

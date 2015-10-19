@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Parse
+import FBSDKCoreKit
 
 class SignUpViewController: UIViewController {
 
@@ -14,6 +16,17 @@ class SignUpViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        let graphRequest = FBSDKGraphRequest(graphPath: "me", parameters: nil)
+        graphRequest.startWithCompletionHandler({
+            (connection, result, error) -> Void in
+            if error != nil {
+                print(error)
+            } else if let result = result {
+                
+                print(result)
+                
+            }
+        })
     }
 
     override func didReceiveMemoryWarning() {
