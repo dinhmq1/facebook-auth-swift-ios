@@ -9,6 +9,7 @@
 import UIKit
 import Parse
 import FBSDKCoreKit
+import FBSDKShareKit
 
 class SignUpViewController: UIViewController {
 
@@ -16,17 +17,19 @@ class SignUpViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        let graphRequest = FBSDKGraphRequest(graphPath: "me", parameters: nil)
-        graphRequest.startWithCompletionHandler({
-            (connection, result, error) -> Void in
-            if error != nil {
-                print(error)
-            } else if let result = result {
+        var fbRequest = FBSDKGraphRequest(graphPath:"me", parameters: ["fields": "id, name, first_name, last_name, email"]);
+        fbRequest.startWithCompletionHandler { (connection : FBSDKGraphRequestConnection!, result : AnyObject!, error : NSError!) -> Void in
+            
+            if error == nil {
                 
-                print(result)
+                print("Friends are : \(result)")
+                
+            } else {
+                
+                print("Error Getting Friends \(error)");
                 
             }
-        })
+        }
     }
 
     override func didReceiveMemoryWarning() {
